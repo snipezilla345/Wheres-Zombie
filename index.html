@@ -14,7 +14,7 @@
 }
 </style>
       <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4wp1QSbAFgT_LqqPXO9zIcYpDLKAn0L0&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4wp1QSbAFgT_LqqPXO9zIcYpDLKAn0L0&callback=initMap&libraries=geometry">
   </script>
   <body>
     Items I want to appear on my page will go here
@@ -23,6 +23,8 @@
 <div id="zombie_map"></div>
     <script>
     var zombie_map;
+        var tolerance
+        var old_position 
         var all_markers = []
         var data = `43.667553846406335 -79.82751516802853 zombie.png
 43.668430809530456 -79.82674269183224 zombie.png
@@ -53,7 +55,7 @@
 43.66572227147913 -79.82436089022701 zombie.png`;     
 var markers = data.split("\n");
         
-    function initMap() {
+    function initMap(old_position) {
             zombie_map = new google.maps.Map(document.getElementById('zombie_map'), {
             zoom: 16,
             center: {lat: 43.666275, lng: -79.820358}
@@ -64,7 +66,7 @@ var markers = data.split("\n");
             else {
               alert("Geolocation doesn't work in your browser!");
               }
-         
+ 
             for(var i=0; i < markers.length; i++){
                 document.write(markers[i] + "<br>");
                 var marker_data = markers[i].trim();
@@ -80,15 +82,16 @@ var markers = data.split("\n");
                   });
                 all_markers.push(marker);
                 }
-
         }
         function set_my_position(position) {
+            old_position.setMap(null);
           var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           var loc = "location.png"
           var marker = new google.maps.Marker({
                   position: pos,
                   map: zombie_map,
                   icon: loc
+              old_position = marker;
                   });       
         }
 </script>
