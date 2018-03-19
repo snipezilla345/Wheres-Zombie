@@ -23,7 +23,6 @@
 <div id="zombie_map"></div>
     <script>
     var zombie_map;
-        var tolerance
         var old_position 
         var all_markers = []
         var data = `43.667553846406335 -79.82751516802853 zombie.png
@@ -84,14 +83,12 @@ var markers = data.split("\n");
                 }
         }
         function set_my_position(position) {
-            old_position.setMap(null);
           var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
           var loc = "location.png"
           var marker = new google.maps.Marker({
                   position: pos,
                   map: zombie_map,
                   icon: loc
-              old_position = marker;
                   });       
         }
 </script>
